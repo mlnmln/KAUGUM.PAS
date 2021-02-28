@@ -14,6 +14,9 @@ let Ausgabe: AusgabemengeTyp;
 let Zustand: ZustandsmengeTyp;
 
 async function Eingabeprozedur() {
+  console.log(
+    "---(W)ahl---(Z)urück---(F)ünfzig Pf---(H)undert Pf---(E)nde--->"
+  );
   readline.emitKeypressEvents(process.stdin);
   if (process.stdin instanceof tty.ReadStream) {
     process.stdin.setRawMode(true);
@@ -176,9 +179,6 @@ function Uebergangsfunktion() {
 async function Speicher() {
   Zustand = Startzustand;
   console.log("Kaugummiautomat\n");
-  console.log(
-    "---(W)ahl---(Z)urück---(F)ünfzig Pf---(H)undert Pf---(E)nde--->"
-  );
 
   do {
     await Eingabeprozedur();
