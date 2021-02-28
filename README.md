@@ -4,9 +4,13 @@
 
 ![](https://raw.githubusercontent.com/mlnmln/KAUGUM.PAS/master/doc/prompt.png)
 
+The original code [contains a bug](https://github.com/mlnmln/KAUGUM.PAS/blob/master/doc/KAUGUM.PAS#L63), which kept as is. I also tried to ressemble the old programm structure as close possible, but I needed to make a couple of adjustments. Turns out, procedual and impure programming is possible in TS :).
+
 ## Installation
 
 ```
+git clone git@github.com:mlnmln/KAUGUM.PAS.git
+
 npm install
 ```
 
@@ -17,6 +21,8 @@ npm run build
 
 npm start
 ```
+
+Then follow the command line prompts to interact with the gumball machine.
 
 ## Development
 
