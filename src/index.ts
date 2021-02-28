@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const readline = require("readline");
 const tty = require("tty");
 
@@ -12,24 +13,39 @@ let Eingabe: EingabemengeTyp;
 let Ausgabe: AusgabemengeTyp;
 let Zustand: ZustandsmengeTyp;
 
-function Eingabeprozedur(Taste: string) {
-  switch (Taste.toUpperCase()) {
-    case "W":
-      Eingabe = "EWahl";
-      break;
-    case "Z":
-      Eingabe = "EZurueck";
-      break;
-    case "F":
-      Eingabe = "E50";
-      break;
-    case "H":
-      Eingabe = "E100";
-      break;
-    default:
-      process.exit();
-      break;
+async function Eingabeprozedur() {
+  readline.emitKeypressEvents(process.stdin);
+  if (process.stdin instanceof tty.ReadStream) {
+    process.stdin.setRawMode(true);
   }
+
+  return new Promise<void>(resolve =>
+    process.stdin.once("keypress", (Taste: string) => {
+      if (process.stdin instanceof tty.ReadStream) {
+        process.stdin.setRawMode(false);
+      }
+
+      switch (Taste.toUpperCase()) {
+        case "W":
+          Eingabe = "EWahl";
+          break;
+        case "Z":
+          Eingabe = "EZurueck";
+          break;
+        case "F":
+          Eingabe = "E50";
+          break;
+        case "H":
+          Eingabe = "E100";
+          break;
+        default:
+          process.exit();
+          break;
+      }
+
+      resolve();
+    })
+  );
 }
 
 function Ausgabeprozedur() {
@@ -157,23 +173,18 @@ function Uebergangsfunktion() {
   }
 }
 
-function Speicher() {
+async function Speicher() {
   Zustand = Startzustand;
   console.log("Kaugummiautomat\n");
   console.log(
     "---(W)ahl---(Z)urück---(F)ünfzig Pf---(H)undert Pf---(E)nde--->"
   );
 
-  readline.emitKeypressEvents(process.stdin);
-  if (process.stdin instanceof tty.ReadStream) {
-    process.stdin.setRawMode(true);
-  }
-
-  process.stdin.on("keypress", (Taste: string) => {
-    Eingabeprozedur(Taste);
+  do {
+    await Eingabeprozedur();
     Uebergangsfunktion();
     Ausgabeprozedur();
-  });
+  } while (true);
 }
 
 Speicher();
