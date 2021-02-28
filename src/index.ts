@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 const readline = require("readline");
+const tty = require("tty");
 
-type ZustandsmengeTyp = "Z0" | "Z50" | "Z100" | "Z150";
-type AusgabemengeTyp = "Anichts" | "Aware" | "A50" | "A100" | "A150";
-type EingabemengeTyp = "EWahl" | "EZurueck" | "E50" | "E100";
+export type ZustandsmengeTyp = "Z0" | "Z50" | "Z100" | "Z150";
+export type AusgabemengeTyp = "Anichts" | "Aware" | "A50" | "A100" | "A150";
+export type EingabemengeTyp = "EWahl" | "EZurueck" | "E50" | "E100";
 
 const Startzustand = "Z0";
 
@@ -160,7 +161,11 @@ Zustand = Startzustand;
 console.log("Kaugummiautomat\n");
 console.log("---(W)ahl---(Z)urück---(F)ünfzig Pf---(H)undert Pf---(E)nde--->");
 readline.emitKeypressEvents(process.stdin);
-process.stdin.setRawMode(true);
+
+if (process.stdin instanceof tty.ReadStream) {
+  process.stdin.setRawMode(true);
+}
+
 process.stdin.on("keypress", (Taste: string) => {
   Eingabeprozedur(Taste);
   Uebergangsfunktion();
