@@ -2,9 +2,9 @@
 const readline = require("readline");
 const tty = require("tty");
 
-export type ZustandsmengeTyp = "Z0" | "Z50" | "Z100" | "Z150";
-export type AusgabemengeTyp = "Anichts" | "Aware" | "A50" | "A100" | "A150";
-export type EingabemengeTyp = "EWahl" | "EZurueck" | "E50" | "E100";
+type ZustandsmengeTyp = "Z0" | "Z50" | "Z100" | "Z150";
+type AusgabemengeTyp = "Anichts" | "Aware" | "A50" | "A100" | "A150";
+type EingabemengeTyp = "EWahl" | "EZurueck" | "E50" | "E100";
 
 const Startzustand = "Z0";
 
@@ -157,17 +157,23 @@ function Uebergangsfunktion() {
   }
 }
 
-Zustand = Startzustand;
-console.log("Kaugummiautomat\n");
-console.log("---(W)ahl---(Z)urück---(F)ünfzig Pf---(H)undert Pf---(E)nde--->");
-readline.emitKeypressEvents(process.stdin);
+function Speicher() {
+  Zustand = Startzustand;
+  console.log("Kaugummiautomat\n");
+  console.log(
+    "---(W)ahl---(Z)urück---(F)ünfzig Pf---(H)undert Pf---(E)nde--->"
+  );
 
-if (process.stdin instanceof tty.ReadStream) {
-  process.stdin.setRawMode(true);
+  readline.emitKeypressEvents(process.stdin);
+  if (process.stdin instanceof tty.ReadStream) {
+    process.stdin.setRawMode(true);
+  }
+
+  process.stdin.on("keypress", (Taste: string) => {
+    Eingabeprozedur(Taste);
+    Uebergangsfunktion();
+    Ausgabeprozedur();
+  });
 }
 
-process.stdin.on("keypress", (Taste: string) => {
-  Eingabeprozedur(Taste);
-  Uebergangsfunktion();
-  Ausgabeprozedur();
-});
+Speicher();
