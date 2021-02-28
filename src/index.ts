@@ -97,7 +97,6 @@ function Uebergangsfunktion() {
         case "E50":
           Ausgabe = "Anichts";
           Zustand = "Z50";
-          console.log(Ausgabe, Zustand);
           break;
         case "E100":
           Ausgabe = "Anichts";
