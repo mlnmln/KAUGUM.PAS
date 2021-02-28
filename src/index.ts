@@ -177,8 +177,8 @@ function Uebergangsfunktion() {
 }
 
 async function Speicher() {
-  Zustand = Startzustand;
   console.log("Kaugummiautomat\n");
+  Zustand = Startzustand;
 
   do {
     await Eingabeprozedur();
