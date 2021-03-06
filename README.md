@@ -4,7 +4,7 @@
 
 ![](https://raw.githubusercontent.com/mlnmln/KAUGUM.PAS/master/doc/prompt.png)
 
-The original code [contains a bug](https://github.com/mlnmln/KAUGUM.PAS/blob/master/doc/KAUGUM.PAS#L63), which kept as is. I also tried to ressemble the old programm structure as close as possible, but I needed to make a couple of adjustments. Turns out, procedural and impure programming is possible in TS :).
+The original code [contains a bug](https://github.com/mlnmln/KAUGUM.PAS/blob/master/doc/KAUGUM.PAS#L63), which kept as is. I also tried to ressemble the old program structure as close as possible, but I needed to make a couple of adjustments. Turns out, procedural and impure programming is possible in TS :).
 
 ## Installation
 
